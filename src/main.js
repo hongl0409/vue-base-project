@@ -9,7 +9,6 @@ import './styles/reset.css'
 import './styles/border.css'
 
 // 
-
 Vue.config.productionTip = false
 
 new Vue({

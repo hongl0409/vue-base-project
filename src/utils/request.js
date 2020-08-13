@@ -1,11 +1,12 @@
 import axios from 'axios'
 import { setToken, getToken } from './auth'
 import router from '@/router/index'
-import { Toast } from 'vant'
-import { resolve } from 'core-js/fn/promise'
+import Toast from 'vant/lib/toast'
+import 'vant/lib/toast/style'
+import baseURL from './url'
 
 const service = axios.create({
-  baseURL: baseUrl,
+  baseURL: baseURL,
   timeout: 20000
 })
 
@@ -20,7 +21,7 @@ service.interceptors.request.use(
     if (getToken()) {
       config.header['token'] = getToken()
     } else {
-      router.replace({ path: '/login' })
+      // router.replace({ path: '/login' })
     }
 
     return config
@@ -38,8 +39,9 @@ service.interceptors.response.use(
     if (code == 0) {
       return res
     } else if (code == 111) {
-      router.replace({ path: '/login' })
+      // router.replace({ path: '/login' })
     } else {
+      console.log(res)
       Toast(res.message)
     }
 
@@ -51,4 +53,21 @@ service.interceptors.response.use(
   }
 )
 
-export default service
+function request(options) { 
+  if (options.method.toLocaleLowerCase() == 'get') {
+    return service({
+      url: options.url,
+      method: options.method,
+      params: options.data
+    })
+  } else if (options.method.toLocaleLowerCase() == 'post') {
+    return service({
+      url: options.url,
+      method: options.method,
+      data: options.data
+    })
+  }
+  
+}
+
+export default request

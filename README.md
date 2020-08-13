@@ -1,4 +1,4 @@
-# vue-ots-helper
+# vue-base-project
 
 ## Project setup
 ```

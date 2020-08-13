@@ -1,1 +1,1 @@
-import request from '@/utils/request.js'
+export * from './module/login'
